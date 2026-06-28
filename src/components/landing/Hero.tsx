@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "@/contexts/AuthContext"
 import { Button } from "@/components/ui/button"
 
 const CHAT_MESSAGES = [
@@ -19,6 +21,9 @@ const CHAT_MESSAGES = [
 ]
 
 export default function Hero() {
+  const { user } = useAuth()
+  const navigate = useNavigate()
+
   const scrollToHowItWorks = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" })
@@ -141,6 +146,7 @@ export default function Hero() {
       <Button
         className="mt-8 h-[52px] rounded-[26px] px-10 text-base transition-all duration-300 hover:scale-[1.02]"
         aria-label="Talk to Serena now"
+        onClick={() => navigate(user ? "/chat" : "/register")}
       >
         Talk to Serena now
       </Button>
